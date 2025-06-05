@@ -12,11 +12,11 @@ namespace Model.Data
     public class SerializeJson : Serialize
     {
         private static int _lastReportNumber = 0;
-        public override string Extension => "json";
+        public override string Extension => "json"; //переопределение 5
 
         public SerializeJson() { }
 
-        public override void Ser(FoodProduct product)
+        public override void Ser(FoodProduct product) //переопределение 6
         {
             SelectFolder(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "ProductsJson"));
             SelectFile(product.Name);
@@ -25,7 +25,7 @@ namespace Model.Data
             File.WriteAllText(FilePath, json.ToString());
         }
 
-        public override void GenerateReport(FoodProduct[] products)
+        public override void GenerateReport(FoodProduct[] products) //переопределение 7
         {
             SelectFolder(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "ReportsJson"));
 
@@ -38,7 +38,7 @@ namespace Model.Data
             GenerateReport(products, FileName);
         }
 
-        public override void GenerateReport(FoodProduct[] products, string filename)
+        public override void GenerateReport(FoodProduct[] products, string filename) //переопределение 8
         {
             SelectFolder(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "ReportsJson"));
 
@@ -50,10 +50,11 @@ namespace Model.Data
                 Products = products
             };
             var json = JObject.FromObject(data);
-            json.Add("MaxQuality", FoodQualityAnalyzer.MaxQuality(products));
-            json.Add("MinQuality", FoodQualityAnalyzer.MinQuality(products));
-            json.Add("AverageQuality", FoodQualityAnalyzer.AverageQuality(products));
-            json.Add("MedianQuality", FoodQualityAnalyzer.MedianQuality(products));
+            var analyzer = new FoodQualityAnalyzer();
+            json.Add("MaxQuality", analyzer.MaxQuality(products));
+            json.Add("MinQuality", analyzer.MinQuality(products));
+            json.Add("AverageQuality", analyzer.AverageQuality(products));
+            json.Add("MedianQuality", analyzer.MedianQuality(products));
             File.WriteAllText(FilePath, json.ToString());
         }
 
@@ -64,28 +65,28 @@ namespace Model.Data
             switch (json["Type"].ToString())
             {
                 case nameof(Vegetable):
-                    NewProduct = new Vegetable(json["Name"].ToString(),
+                    NewProduct = new Vegetable(json["Name"].ToString(), // Приведение к FoodProduct 2
                         int.Parse(json["DaysUntilBad"].ToString()),
                         int.Parse(json["MaxLifeDays"].ToString()),
                         bool.Parse(json["NeedToCook"].ToString()),
                         bool.Parse(json["IsHard"].ToString()));
                     break;
                 case nameof(Fruit):
-                    NewProduct = new Fruit(json["Name"].ToString(),
+                    NewProduct = new Fruit(json["Name"].ToString(),  // Приведение к FoodProduct 3
                         int.Parse(json["DaysUntilBad"].ToString()),
                         int.Parse(json["MaxLifeDays"].ToString()),
                         bool.Parse(json["IsPopular"].ToString()),
                         bool.Parse(json["IsExhotic"].ToString()));
                     break;
                 case nameof(Meat):
-                    NewProduct = new Meat(json["Name"].ToString(),
+                    NewProduct = new Meat(json["Name"].ToString(),  // Приведение к FoodProduct 4
                         int.Parse(json["DaysUntilBad"].ToString()),
                         int.Parse(json["MaxLifeDays"].ToString()),
                         bool.Parse(json["IsRed"].ToString()),
                         bool.Parse(json["WithBones"].ToString()));
                     break;
                 case nameof(Backery):
-                    NewProduct = new Backery(json["Name"].ToString(),
+                    NewProduct = new Backery(json["Name"].ToString(), // Приведение к FoodProduct 5
                         int.Parse(json["DaysUntilBad"].ToString()),
                         int.Parse(json["MaxLifeDays"].ToString()),
                         bool.Parse(json["IsSweet"].ToString()),

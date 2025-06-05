@@ -32,7 +32,8 @@ namespace Model.Data
                 var text = File.ReadAllText(file);
                 var json = JToken.Parse(text);
                 FoodProduct NewProduct = SerializeJson.Deser(json);
-                FoodQualityAnalyzer.Add(NewProduct);
+                var analyzer = new FoodQualityAnalyzer(); //приведение к интерфейсу
+                analyzer.Add(NewProduct);
             }
         }
 

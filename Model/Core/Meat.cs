@@ -11,7 +11,6 @@ namespace Model.Core
         public bool IsRed { get; private set; }
         public bool WithBones { get; private set; }
         public string Type { get; private set; }
-
         public Meat(string name, int daysUntilBad, int maxLifeDays, bool isRed, bool withBones)
             : base(name, daysUntilBad, maxLifeDays)
         {
@@ -20,7 +19,7 @@ namespace Model.Core
             Type = nameof(Meat);
         }
 
-        public override double GetQuality()
+        public override double GetQuality() //переопределение 3
         {
             double quality = DaysUntilBad / (double)MaxLifeDays * 100;
             if (quality <= 10) return 0; //Если мясу осталось жить меньше дня, оно испортилось

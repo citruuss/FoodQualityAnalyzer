@@ -20,11 +20,10 @@ namespace Model.Core
             Type = nameof(Fruit);
         }
 
-        public override double GetQuality()
+        public override double GetQuality() //переопределение 2
         {
             double quality = DaysUntilBad / (double)MaxLifeDays * 100;
-            if (IsPopular) quality *= 1.1;
-            return Math.Min(100, Math.Round(quality, 2));
+            return Math.Round(quality, 2);
         }
     }
 }

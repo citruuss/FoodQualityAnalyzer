@@ -35,10 +35,10 @@ namespace FoodQualityAnalyzer
                 {
                     foreach (var p in Model.Core.FoodQualityAnalyzer.Products)
                     {
-                        if (p.Name == checkBox.Content.ToString())
+                        if (p.Name == checkBox.Content.ToString())  //приведение к базовому 1
                         {
                             Array.Resize(ref selectedProducts, selectedProducts.Length + 1);
-                            selectedProducts[selectedProducts.Length - 1] = p;
+                            selectedProducts[selectedProducts.Length - 1] = p; // p приводится к FoodProduct
                         }
                     }
                 }
@@ -66,24 +66,32 @@ namespace FoodQualityAnalyzer
             return null;
         }
 
-        public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
+        public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject //обобщенный тип данных 1
         {
-            if (depObj != null)
-            {
-                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
-                {
-                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
-                    if (child != null && child is T)
-                    {
-                        yield return (T)child;
-                    }
+            var result = new List<T>();
+            if (depObj == null) return result;
 
-                    foreach (T childOfChild in FindVisualChildren<T>(child))
-                    {
-                        yield return childOfChild;
-                    }
+            var stack = new Stack<DependencyObject>();
+            stack.Push(depObj);
+
+            while (stack.Count > 0)
+            {
+                var current = stack.Pop();
+                var childrenCount = VisualTreeHelper.GetChildrenCount(current);
+
+                for (int i = 0; i < childrenCount; i++)
+                {
+                    var child = VisualTreeHelper.GetChild(current, i);
+                    if (child == null) continue;
+
+                    if (child is T matchedChild)
+                        result.Add(matchedChild);
+
+                    stack.Push(child);
                 }
             }
+
+            return result;
         }
 
         private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -165,11 +173,12 @@ namespace FoodQualityAnalyzer
                     }
                 }
             }
-            
+
             for (int i = 0; i < prods.Count; i++)
             {
                 var p = prods[i];
-                Model.Core.FoodQualityAnalyzer.Remove(p);
+                var analyzer = new Model.Core.FoodQualityAnalyzer();
+                analyzer.Remove(p);
                 cb[i].IsChecked = false;
                 if (p is Vegetable) VegetablePanel.Children.Remove(cb[i]);
                 if (p is Fruit) FruitPanel.Children.Remove(cb[i]);

@@ -27,7 +27,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
+       
         <!-- Заголовок -->
         <TextBlock Grid.Row="0" 
                    Text="Выберите продукты для анализа:"
@@ -35,7 +35,7 @@
                    FontWeight="Bold"
                    Margin="0,0,0,10"/>
 
-
+       
         <!-- Список продуктов с прокруткой -->
         <ScrollViewer Grid.Row="2" 
                       VerticalScrollBarVisibility="Auto"
@@ -76,7 +76,7 @@
                  
                     Orientation="Horizontal" 
                     HorizontalAlignment="Right">
-
+            
             <Button Content="Добавить продукт" 
                     Width="140" 
                     Height="30"

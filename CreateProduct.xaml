@@ -32,8 +32,6 @@
         <TextBlock Grid.Row="6" Text="Оставшийся срок годности (дней):" Margin="0,0,0,5" Height="20"/>
         <TextBox Grid.Row="7" x:Name="OstTextBox" Margin="0,0,0,10" Height="20"/>
 
-        <!--<TextBlock Grid.Row="6" Margin="0,0,0,5"><Run Text="Оставшийся срок годности (дней):"/></TextBlock>
-        <TextBox Grid.Row="7" x:Name="OstTextBox" Margin="0,0,0,10"/>-->
 
         <!-- Параметры продукта -->
         <StackPanel Grid.Row="8" Margin="0,10,0,5" Grid.RowSpan="2">

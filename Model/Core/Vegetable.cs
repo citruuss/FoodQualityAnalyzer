@@ -11,7 +11,6 @@ namespace Model.Core
         public bool NeedToCook { get; private set; }
         public bool IsHard { get; private set; }
         public string Type { get; private set; }
-
         public Vegetable(string name, int daysUntilBad, int maxLifeDays, bool needToCook, bool isHard)
             : base(name, daysUntilBad, maxLifeDays)
         {
@@ -20,7 +19,7 @@ namespace Model.Core
             Type = nameof(Vegetable);
         }
 
-        public override double GetQuality()
+        public override double GetQuality() //переопределение 4
         {
             double quality = DaysUntilBad / (double)MaxLifeDays * 100;
             return Math.Round(quality, 2);

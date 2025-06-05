@@ -2,12 +2,14 @@
 using Model.Data;
 using Model.Core;
 using System.Windows.Controls;
+using System;
 
 namespace FoodQualityAnalyzer
 {
     public partial class AddProductWindow : Window
     {
         public FoodProduct NewProduct { get; private set; }
+        private static ChartWindow _window = null;
         public AddProductWindow()
         {
             InitializeComponent();
@@ -21,6 +23,16 @@ namespace FoodQualityAnalyzer
                 "Выпечка"
             };
             TypeComboBox.SelectedIndex = 0;
+        }
+
+        public static void Update(ChartWindow w)
+        {
+            _window = w;
+        }
+
+        public static void Update()
+        {
+            _window = null;
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -83,8 +95,10 @@ namespace FoodQualityAnalyzer
             var mainWindow = (MainWindow)Application.Current.MainWindow;
             mainWindow.AddProduct(NewProduct);
 
-            Model.Core.FoodQualityAnalyzer.Add(NewProduct);
+            var analyzer = new Model.Core.FoodQualityAnalyzer();
+            analyzer.Add(NewProduct);
             ProductAdd_Json.SaveProduct(NewProduct);
+            if (_window != null) _window.SubscribeToCheckboxes();
             Close();
         }
 

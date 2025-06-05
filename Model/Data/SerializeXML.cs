@@ -15,7 +15,7 @@ namespace Model.Data
     public class SerializeXML : Serialize
     {
         private static int _lastReportNumber = 0;
-        public override string Extension => "xml";
+        public override string Extension => "xml"; //переопределение 9
 
         [XmlInclude(typeof(VegetableDTO))]
         [XmlInclude(typeof(FruitDTO))]
@@ -124,15 +124,23 @@ namespace Model.Data
                     Backery b => new BackeryDTO(b),
                     _ => new ProductDTO(p)
                 }).ToArray();
-                MaxQuality = FoodQualityAnalyzer.MaxQuality(products);
-                MinQuality = FoodQualityAnalyzer.MinQuality(products);
-                AverageQuality = FoodQualityAnalyzer.AverageQuality(products);
-                MedianQuality = FoodQualityAnalyzer.MedianQuality(products);
+                var analyzer = new FoodQualityAnalyzer();
+                MaxQuality = analyzer.MaxQuality(products);
+                MinQuality = analyzer.MinQuality(products);
+                AverageQuality = analyzer.AverageQuality(products);
+                MedianQuality = analyzer.MedianQuality(products);
             }
             public ReportDTO() { }
         }
 
-        public override void Ser(FoodProduct product)
+        private void Ser1<T>(T obj) //обобщенный тип данных 2
+        {
+            using var writer = new StreamWriter(FilePath);
+            var ser = new XmlSerializer(typeof(T));
+            ser.Serialize(writer, obj);
+            writer.Close();
+        }
+        public override void Ser(FoodProduct product) //переопределение 10
         {
             SelectFolder(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "ProductsXML"));
             if (!Directory.Exists(FolderPath)) Directory.CreateDirectory(FolderPath);
@@ -140,39 +148,27 @@ namespace Model.Data
             if (product is Vegetable v)
             {
                 var prod = new VegetableDTO(v);
-                using var writer = new StreamWriter(FilePath);
-                var ser = new XmlSerializer(typeof(VegetableDTO));
-                ser.Serialize(writer, prod);
-                writer.Close();
+                Ser1<VegetableDTO>(prod);
             }
             else if (product is Fruit f)
             {
                 var prod = new FruitDTO(f);
-                using var writer = new StreamWriter(FilePath);
-                var ser = new XmlSerializer(typeof(FruitDTO));
-                ser.Serialize(writer, prod);
-                writer.Close();
+                Ser1<FruitDTO>(prod);
             }
             else if (product is Meat m)
             {
                 var prod = new MeatDTO(m);
-                using var writer = new StreamWriter(FilePath);
-                var ser = new XmlSerializer(typeof(MeatDTO));
-                ser.Serialize(writer, prod);
-                writer.Close();
+                Ser1<MeatDTO>(prod);
             }
             else if (product is Backery b)
             {
                 var prod = new BackeryDTO(b);
-                using var writer = new StreamWriter(FilePath);
-                var ser = new XmlSerializer(typeof(BackeryDTO));
-                ser.Serialize(writer, prod);
-                writer.Close();
+                Ser1<BackeryDTO>(prod);
             }
 
         }
 
-        public override void GenerateReport(FoodProduct[] products)
+        public override void GenerateReport(FoodProduct[] products) //переопределение 11
         {
             SelectFolder(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "ReportsXML"));
 
@@ -185,12 +181,9 @@ namespace Model.Data
             GenerateReport(products, FileName);
         }
 
-        public override void GenerateReport(FoodProduct[] products, string filename)
+        public override void GenerateReport(FoodProduct[] products, string filename) //переопределение 12
         {
             SelectFolder(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "ReportsXML"));
-
-            if (_lastReportNumber == 0) _lastReportNumber = GetLastReportNumber();
-            _lastReportNumber++;
 
             SelectFile(filename);
 

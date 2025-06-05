@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public interface IStatistic
+    public interface IStatistic //интерфейс 3
     {
-        static double MaxQuality(FoodProduct[] products) { return 0; }
-        static double MinQuality(FoodProduct[] products) { return 0; }
-        static double AverageQuality(FoodProduct[] products) { return 0; }
-        static double MedianQuality(FoodProduct[] products) { return 0; }
+        double MaxQuality(FoodProduct[] products) { return 0; }
+        double MinQuality(FoodProduct[] products) { return 0; } //перегрузка 3
+        double AverageQuality(FoodProduct[] products) { return 0; } 
+        double MedianQuality(FoodProduct[] products) { return 0; } //перегрузка 4
     }
 }

@@ -19,19 +19,12 @@ namespace Model.Core
             Products = new FoodProduct[0];
         }
 
-        public static void Add(FoodProduct product)
+        public void Add(FoodProduct product)
         {
-            var arr = new FoodProduct[1];
-            if (Products != null)
-            {
-                arr = new FoodProduct[Products.Length + 1];
-                Array.Copy(Products, arr, Products.Length);
-            }
-            arr[arr.Length - 1] = product;
-            Products = arr;
+            Products = Products + product;
         }
 
-        public static void Add(FoodProduct[] products) //Перегрузка 1
+        public void Add(FoodProduct[] products) //Перегрузка 1
         {
             if (products != null)
             {
@@ -64,14 +57,12 @@ namespace Model.Core
 
     public partial class FoodQualityAnalyzer : IShrinkable
     {
-        public static void Remove(FoodProduct product) //удаление конкретного продукта
+        public void Remove(FoodProduct product) //удаление конкретного продукта
         {
-            var pr = Products.ToList();
-            pr.Remove(product);
-            Products = pr.ToArray();
+            Products = Products - product;
         }
 
-        public static void Remove(int index) //удаление продукта под номером
+        public void Remove(int index) //удаление продукта под номером
         {
             if (index < 0 || index > Products.Length) return;
 
@@ -83,7 +74,7 @@ namespace Model.Core
             }
             Products = arr;
         }
-        public static void Remove() //удаление последнего продукта с параметрами???
+        public void Remove() //удаление последнего продукта с параметрами
         {
             FoodProduct[] _products = new FoodProduct[0];
             if (Products != null)
@@ -97,13 +88,13 @@ namespace Model.Core
 
     public partial class FoodQualityAnalyzer : IStatistic
     {
-        public static double MaxQuality(FoodProduct[] products) => products.Select(p => p.GetQuality()).Max();
+        public double MaxQuality(FoodProduct[] products) => products.Select(p => p.GetQuality()).Max();
 
-        public static double MinQuality(FoodProduct[] products) => products.Select(p => p.GetQuality()).Min();
+        public double MinQuality(FoodProduct[] products) => products.Select(p => p.GetQuality()).Min();
 
-        public static double AverageQuality(FoodProduct[] products) => products.Select(p => p.GetQuality()).Average();
+        public double AverageQuality(FoodProduct[] products) => products.Select(p => p.GetQuality()).Average();
 
-        public static double MedianQuality(FoodProduct[] products)
+        public double MedianQuality(FoodProduct[] products)
         {
             var sorted = products.Select(p => p.GetQuality()).OrderBy(q => q).ToList();
             int count = sorted.Count;

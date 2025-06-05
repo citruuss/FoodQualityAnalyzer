@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Model.Core
 {
-    public interface IShrinkable
+    public interface IShrinkable //2 интерфейс
     {
-        static void Remove(FoodProduct product) { }
-        static void Remove(int index) { }
-        static void Remove() { }
+        void Remove(FoodProduct product) { } 
+        void Remove(int index) { }
+        void Remove() { } //перегрузка 2
     }
 }

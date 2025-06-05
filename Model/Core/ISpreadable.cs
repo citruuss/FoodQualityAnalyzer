@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Model.Core
 {
-    public interface ISpreadable
+    public interface ISpreadable  //1 интерфейс
     {
         public static FoodProduct[] Products { get; }
-        static void Add(FoodProduct product) { }
-        static void Add(FoodProduct[] products) { }
+        void Add(FoodProduct product) { } 
+        void Add(FoodProduct[] products) { } //перегрузка 1
     }
 }

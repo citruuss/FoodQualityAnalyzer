@@ -9,7 +9,7 @@ namespace Model.Core
     //Свойства для названия
     //количества дней до истечения срока
     //максимального срока годности
-    public abstract class FoodProduct
+    public abstract class FoodProduct //абстрактный класс 1
     {
         public string Name { get; private set; }
         public int DaysUntilBad { get; private set; }
@@ -20,6 +20,21 @@ namespace Model.Core
             Name = name;
             DaysUntilBad = daysUntilBad;
             MaxLifeDays = maxLifeDays;
+        }
+        public static FoodProduct[] operator +(FoodProduct[] products, FoodProduct product) //перегрузка оператора 1
+        {
+            if (products == null) return new FoodProduct[] { product };
+            var pr = products.ToList();
+            pr.Add(product);
+            return pr.ToArray();
+        }
+
+        public static FoodProduct[] operator -(FoodProduct[] products, FoodProduct product) //перегрузка оператора 2
+        {
+            if (products == null) return new FoodProduct[0];
+            var pr = products.ToList();
+            pr.Remove(product);
+            return pr.ToArray();
         }
 
         public abstract double GetQuality();

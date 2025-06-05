@@ -1,4 +1,10 @@
-﻿<Window x:Class="FoodQualityAnalyzer.ChartWindow"
+﻿<!-- объявляем окно, связанное с классом ChartWindow в пространстве FoodQualityAnalyzer
+    title= заголовок окна
+    Height & Width началная высота и ширина окна
+    MinWidth & MinHeight минимальные размеры до которых можно уменьшить окно
+    FontSize ширина шрифта по умолчанию
+    Background фоновый цвет окна -->
+    <Window x:Class="FoodQualityAnalyzer.ChartWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,7 +13,9 @@
         mc:Ignorable="d"
         Title="Результаты анализа" 
         Height="550" Width="700"
-        FontSize="14">
+        MinWidth="500"
+        MinHeight="500"
+        FontSize="15">
 
     <Window.Resources>
         <Style TargetType="ComboBox">
@@ -29,7 +37,7 @@
             <ComboBox x:Name="ReportFormatComboBox">
             </ComboBox>
 
-
+            
         </StackPanel>
 
         <!-- Диаграммы -->

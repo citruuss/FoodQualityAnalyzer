@@ -20,7 +20,7 @@ namespace Model.Core
             Type = nameof(Backery);
         }
 
-        public override double GetQuality()
+        public override double GetQuality() //переопределение 1
         {
             double quality = DaysUntilBad / (double)MaxLifeDays * 100;
             return Math.Round(quality, 2);

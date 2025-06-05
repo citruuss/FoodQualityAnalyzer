@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Model.Data
 {
-    public abstract class Serialize
+    public abstract class Serialize //абстрактный класс 2
     {
         public string FolderPath { get; private set; }
         public string FilePath { get; private set; }
