@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "E9StOTIiTt8=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Арсений\\source\\repos\\FoodQualityAnalyzer\\лаб10\\Model\\Model.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Арсений\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
