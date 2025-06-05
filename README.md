@@ -47,5 +47,6 @@
 
 # Разработчики
 
-Власова Анна
-Ившин Арсений
+Власова Анна  https://github.com/citruuss
+
+Ившин Арсений  https://github.com/forever-bel
