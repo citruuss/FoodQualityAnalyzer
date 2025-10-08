@@ -22,6 +22,7 @@ namespace Model.Core
             MaxLifeDays = maxLifeDays;
         }
         public static FoodProduct[] operator +(FoodProduct[] products, FoodProduct product) //перегрузка оператора 1
+                                                                                            //добавляет пробукт к массиву
         {
             if (products == null) return new FoodProduct[] { product };
             var pr = products.ToList();

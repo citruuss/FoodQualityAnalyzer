@@ -31,29 +31,7 @@ namespace Model.Core
                 foreach (var p in products) Add(p);
             }
         }
-
-        public void SaveReportToFile(string filePath)
-        {
-            var reportData = new
-            {
-                Date = DateTime.Now,
-                Products = Products.Select(p => new
-                {
-                    p.Name,
-                    Quality = p.GetQuality(),
-                    Type = p.GetType().Name,
-                    DaysUntilExpiry = p.DaysUntilBad,
-                    ExpiryDate = DateTime.Now.AddDays(p.DaysUntilBad)
-                }),
-                AverageQuality = Products.Average(p => p.GetQuality())
-            };
-
-
-            File.WriteAllText(filePath, JsonConvert.SerializeObject(reportData, (Newtonsoft.Json.Formatting)System.Xml.Formatting.Indented));
-        }
     }
-
-
 
     public partial class FoodQualityAnalyzer : IShrinkable
     {
@@ -74,7 +52,7 @@ namespace Model.Core
             }
             Products = arr;
         }
-        public void Remove() //удаление последнего продукта с параметрами
+        public void Remove() //удаление последнего продукта
         {
             FoodProduct[] _products = new FoodProduct[0];
             if (Products != null)

@@ -11,3 +11,6 @@ build_property.RootNamespace = Model
 build_property.ProjectDir = C:\Users\annav\source\repos\FoodQualityAnalyzer\Model\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.CsWinRTUseWindowsUIXamlProjections = false
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 
