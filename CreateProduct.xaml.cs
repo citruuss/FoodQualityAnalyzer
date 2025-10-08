@@ -25,15 +25,6 @@ namespace FoodQualityAnalyzer
             TypeComboBox.SelectedIndex = 0;
         }
 
-        public static void Update(ChartWindow w)
-        {
-            _window = w;
-        }
-
-        public static void Update()
-        {
-            _window = null;
-        }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
@@ -93,12 +84,12 @@ namespace FoodQualityAnalyzer
             }
 
             var mainWindow = (MainWindow)Application.Current.MainWindow;
-            mainWindow.AddProduct(NewProduct);
+            mainWindow.AddProduct(NewProduct); //добавляем чек бокс
 
             var analyzer = new Model.Core.FoodQualityAnalyzer();
             analyzer.Add(NewProduct);
             ProductAdd_Json.SaveProduct(NewProduct);
-            if (_window != null) _window.SubscribeToCheckboxes();
+            if (_window != null) _window.SubscribeToCheckboxes(); //если открыта диаграмма обновляем подписку на чекбокс
             Close();
         }
 
@@ -152,6 +143,15 @@ namespace FoodQualityAnalyzer
                 Case7.Visibility = Visibility.Visible;
                 Case8.Visibility = Visibility.Visible;
             }
+        } 
+        public static void Update(ChartWindow w)
+        {
+            _window = w;
+        }
+
+        public static void Update()
+        {
+            _window = null;
         }
     }
 }

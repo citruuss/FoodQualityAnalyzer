@@ -20,7 +20,7 @@ namespace FoodQualityAnalyzer
         private FoodProduct[] _products;
         public SeriesCollection ColumnSeries { get; set; }
         public List<string> Labels { get; set; }
-        public Func<double, string> Formatter { get; set; } //встроенный делегат
+        public Func<double, string> Formatter { get; set; } //встроенный делегат преобразует число в строку
 
         public ChartWindow(FoodProduct[] products, MainWindow mainWindow)
         {
@@ -40,7 +40,6 @@ namespace FoodQualityAnalyzer
 
             DataContext = this;
             Closing += Window_Closing;
-
             AddProductWindow.Update(this);
         }
 
@@ -75,7 +74,7 @@ namespace FoodQualityAnalyzer
             }
 
             // Форматтер для значений
-            Formatter = value => value.ToString("N0") + "%";
+            Formatter = value => value.ToString("N0") + "%"; // лямбда выр
         }
 
         private void ShowColumnChart(object sender, RoutedEventArgs e)

@@ -49,11 +49,7 @@ namespace FoodQualityAnalyzer
                 var chartWindow = new ChartWindow(selectedProducts, this);
                 chartWindow.Show();
             }
-            else
-            {
-                MessageBox.Show("Выберите хотя бы один продукт", "Ошибка",
-                              MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
+            
         }
 
         public CheckBox FindCheckBox(string content)
@@ -67,6 +63,7 @@ namespace FoodQualityAnalyzer
         }
 
         public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject //обобщенный тип данных 1
+                                                                                                               //ищем чекбокс
         {
             var result = new List<T>();
             if (depObj == null) return result;
@@ -94,7 +91,7 @@ namespace FoodQualityAnalyzer
             return result;
         }
 
-        private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             ProductAdd_Json.LoadProducts();
             foreach (var p in Model.Core.FoodQualityAnalyzer.Products)
@@ -103,7 +100,7 @@ namespace FoodQualityAnalyzer
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e) //открывает окно создания продукта
         {
             var add = new AddProductWindow();
             add.Show();
@@ -118,7 +115,7 @@ namespace FoodQualityAnalyzer
                 IsChecked = false
             };
 
-            NewCheckBox.Checked += (s, e) => UpdateAnalyzeButtonState();
+            NewCheckBox.Checked += (s, e) => UpdateAnalyzeButtonState(); 
             NewCheckBox.Unchecked += (s, e) => UpdateAnalyzeButtonState();
 
             NewCheckBox.Checked += (s, e) => UpdateDeleteButtonState();
